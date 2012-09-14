@@ -5,12 +5,12 @@ from waitinglist.models import Cohort
 
 
 class WaitingListEntryForm(forms.ModelForm):
-    
+
     class Meta:
         model = WaitingListEntry
-    
+
     def clean_email(self):
-        value = self.cleaned_data["email"]
+        value = self.cleaned_data["email"].lower()
         try:
             entry = WaitingListEntry.objects.get(email=value)
         except WaitingListEntry.DoesNotExist:
@@ -25,7 +25,7 @@ class WaitingListEntryForm(forms.ModelForm):
 
 
 class CohortCreate(forms.ModelForm):
-    
+
     class Meta:
         model = Cohort
         exclude = ["created"]
